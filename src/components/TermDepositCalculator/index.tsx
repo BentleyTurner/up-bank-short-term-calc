@@ -10,36 +10,23 @@ export const TermDepositCalculator = () => {
     calculateFinalBalance(data)
   );
 
-  useEffect(() => {
-    const isFormValid = Object.keys(data).every((key) => {
-      const inputConfig = FORM_FIELD_CONFIGURATION.find(
-        (config) => config.fieldName === key
-      );
-
-      if (inputConfig?.input.type === "number") {
-        // @ts-ignore 
-        return !isNaN(data[key]);
-      }
-      return true;
-    });
-    if (isFormValid){
-      setFinalBalance(calculateFinalBalance(data));
-    }
-  }, [data]);
-
   const handleFieldsOnChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => { const { target: { name, value }, } = e;
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => { 
+    const { target: { name, value }, } = e;
     const updatedData = { ...data, [name]: value };
     setData(updatedData);
   };
+  
+  useEffect(() => {
+    setFinalBalance(calculateFinalBalance(data));
+  }, [data]);
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center space-y-6 bg-slate-100">
-      <h1 className="text-2xl italic py-2 px-3 bg-slate-300">
+    <div>
+      <h1 className="underline font-bold">
         Term deposit calculator
       </h1>
-
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-2 p-4 w-full md:w-3/4">
+      <form>
         {FORM_FIELD_CONFIGURATION.map((props) => (
           <FormField
             {...props}
@@ -49,14 +36,11 @@ export const TermDepositCalculator = () => {
           />
         ))}
       </form>
-
       <div>
-          <>
-            <h2 className="text-xl py-2 px-3">
+            <h2 className="font-bold mt-6">
               Final balance:{" $"}
-              {finalBalance.toFixed(2)}
+              {finalBalance}
             </h2>
-          </>
       </div>
     </div>
   );

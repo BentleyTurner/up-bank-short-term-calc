@@ -24,7 +24,7 @@ const determineCalculatorData = (
     case InterestPaidTypes.Quarterly:
       return {
         interestOccurancesPerYear: 4,
-        interestOccurancesPerInvestmentTerm: investmentTerm / 4,
+        interestOccurancesPerInvestmentTerm: investmentTerm / 3,
       };
     case InterestPaidTypes.Annually:
       return {
@@ -44,18 +44,27 @@ export const calculateFinalBalance = ({
 }: TermDepositCalculatorInput) => {
   switch (interestPaid) {
     case InterestPaidTypes.AtMaturity:
-      return startDeposit * (1 + ((interestRate / 100) * investmentTerm) / 12);
+      return Math.round(
+        startDeposit * (1 + ((interestRate / 100) * investmentTerm) / 12)
+      );
     default:
       const calculatorData = determineCalculatorData(
         interestPaid,
         investmentTerm
       );
+
       if (calculatorData) {
-        return (
+        const interestRatePercentage = interestRate / 100;
+
+        const {
+            interestOccurancesPerYear,
+            interestOccurancesPerInvestmentTerm,
+            } = calculatorData;
+
+        return Math.round(
           startDeposit *
-          (1 + interestRate / 100 / calculatorData.interestOccurancesPerYear) **
-            calculatorData.interestOccurancesPerInvestmentTerm
-        );
+          Math.pow(1 + interestRatePercentage / interestOccurancesPerYear, interestOccurancesPerInvestmentTerm));
+        
       }
 
       return startDeposit;

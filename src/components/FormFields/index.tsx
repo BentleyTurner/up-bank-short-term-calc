@@ -4,17 +4,17 @@ import { FormFieldProps, FormFieldCurrentProps } from "./types";
 export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
   fieldName,
   displayTitle,
-  input: { type, value, suffix },
+  input: { type, value},
   currentValue,
   onChange,
 }) => {
-  const inputWidth = `max-w-120px`;
-  const className = `mx-2 py-2 px-3 bg-orange-100 text-center ${inputWidth}`;
+  const className = `mx-2 py-2 px-3 bg-red-300 text-center w-60`;
+//   const className = `bg-orange-100 text-center`;
 
   switch (type) {
     case "number":
       return (
-        <label className="grid grid-cols-2 items-center" key={fieldName}>
+        <label className="grid items-center pb-4" key={fieldName}>
           <span className="font-semibold">{displayTitle}</span>
           <div>
             <input
@@ -24,13 +24,12 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
               value={currentValue}
               onChange={onChange}
             />
-            {suffix && <span>{suffix}</span>}
           </div>
         </label>
       );
     case "select":
       return (
-        <label className="grid grid-cols-2 items-center" key={fieldName}>
+        <label className="grid" key={fieldName}>
           <span className="font-semibold">{displayTitle}</span>
           <select
             className={className}

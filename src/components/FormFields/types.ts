@@ -5,7 +5,6 @@ export type FormFieldProps = {
   displayTitle: string;
   input: {
     type: "number" | "select";
-    suffix?: string;
     value: {
       default: number | string;
       selectOptions?: {
