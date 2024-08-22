@@ -13,7 +13,7 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
   switch (type) {
     case "number":
       return (
-        <label className="grid items-center pb-4" key={fieldName}>
+        <label key={fieldName}>
           <span className="font-semibold">{displayTitle}</span>
           <div>
             <input
@@ -28,7 +28,7 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
       );
     case "select":
       return (
-        <label className="grid" key={fieldName}>
+        <label key={fieldName}>
           <span className="font-semibold">{displayTitle}</span>
           <select
             className={formInputClassName}

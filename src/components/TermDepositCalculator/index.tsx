@@ -23,7 +23,7 @@ export const TermDepositCalculator = () => {
       <h1 className="underline font-bold">
         Term deposit calculator
       </h1>
-      <form>
+      <form className="flex flex-col gap-4">
         {FORM_FIELD_CONFIGURATION.map((props) => (
           <FormField
             {...props}
