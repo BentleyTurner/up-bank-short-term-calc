@@ -6,20 +6,17 @@ import { calculateFinalBalance } from "../../helpers/calculatorHelperFunctions";
 
 export const TermDepositCalculator = () => {
   const [data, setData] = useState<TermDepositCalculatorInput>(DEFAULT_FORM_VALUES);
-  const [finalBalance, setFinalBalance] = useState(
-    calculateFinalBalance(data)
-  );
+  const [finalBalance, setFinalBalance] = useState(calculateFinalBalance(data));
 
-  const handleFieldsOnChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => { 
+  useEffect(() => {
+    setFinalBalance(calculateFinalBalance(data));
+  }, [data]);
+
+  const handleFieldsOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => { 
     const { target: { name, value }, } = e;
     const updatedData = { ...data, [name]: value };
     setData(updatedData);
   };
-  
-  useEffect(() => {
-    setFinalBalance(calculateFinalBalance(data));
-  }, [data]);
 
   return (
     <div>
@@ -37,10 +34,10 @@ export const TermDepositCalculator = () => {
         ))}
       </form>
       <div>
-            <h2 className="font-bold mt-6">
-              Final balance:{" $"}
-              {finalBalance}
-            </h2>
+        <h2 className="font-bold mt-6">
+          Final balance:{" $"}
+          {finalBalance}
+        </h2>
       </div>
     </div>
   );

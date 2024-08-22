@@ -1,6 +1,8 @@
 
 import { FormFieldProps, FormFieldCurrentProps } from "./types";
 
+const formInputClassName = `mx-2 py-2 px-3 bg-red-300 text-center w-60`;
+
 export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
   fieldName,
   displayTitle,
@@ -8,9 +10,6 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
   currentValue,
   onChange,
 }) => {
-  const className = `mx-2 py-2 px-3 bg-red-300 text-center w-60`;
-//   const className = `bg-orange-100 text-center`;
-
   switch (type) {
     case "number":
       return (
@@ -18,7 +17,7 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
           <span className="font-semibold">{displayTitle}</span>
           <div>
             <input
-              className={className}
+              className={formInputClassName}
               name={fieldName}
               type="number"
               value={currentValue}
@@ -32,7 +31,7 @@ export const FormField: React.FC<FormFieldProps & FormFieldCurrentProps> = ({
         <label className="grid" key={fieldName}>
           <span className="font-semibold">{displayTitle}</span>
           <select
-            className={className}
+            className={formInputClassName}
             name={fieldName}
             value={currentValue}
             onChange={onChange}

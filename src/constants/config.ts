@@ -1,8 +1,6 @@
 import { FormFieldProps } from "../components/FormFields/types";
 import { FormFields, InterestPaidTypes } from "../components/TermDepositCalculator/types";
 
-export type Config = FormFieldProps[];
-
 export const DEFAULT_FORM_VALUES = {
   [FormFields.startDeposit]: 10000,
   [FormFields.interestRate]: 1.1,
@@ -10,7 +8,7 @@ export const DEFAULT_FORM_VALUES = {
   [FormFields.interestPaid]: InterestPaidTypes.Monthly,
 };
 
-export const FORM_FIELD_CONFIGURATION: Config = [
+export const FORM_FIELD_CONFIGURATION: FormFieldProps[] = [
   {
     fieldName: FormFields.startDeposit,
     displayTitle: "Start Deposit",

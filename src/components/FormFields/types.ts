@@ -1,5 +1,7 @@
 import { FormFields } from "../TermDepositCalculator/types";
 
+type Option = { name: string; value: string; };
+
 export type FormFieldProps = {
   fieldName: FormFields;
   displayTitle: string;
@@ -7,10 +9,7 @@ export type FormFieldProps = {
     type: "number" | "select";
     value: {
       default: number | string;
-      selectOptions?: {
-        name: string;
-        value: string;
-      }[];
+      selectOptions?: Option[];
     };
   };
 };

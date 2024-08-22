@@ -3,11 +3,15 @@ import {
   TermDepositCalculatorInput,
 } from "../components/TermDepositCalculator/types";
 
-// method to determine the interest frequency and investment term
-// InvestTerm is always in months
-// determine the interestOccurancesPerYear by dividing the Investment term by the number of times in occurs in a year
-// determine the interestOccurancesPerInvestmentTerm by dividing the InterestFrequency by the number of times in occurs in a month
-
+/**
+ * determineCalculatorData: calculate interest frequency and investment term
+ * 
+ * @param interestFrequency InterestPaidTypes
+ * @param investmentTerm total amount of investment term in months
+ * @returns
+ *   - interestOccurancesPerYear by dividing the Investment term by the number of times in occurs in a year
+ *   - interestOccurancesPerInvestmentTerm by dividing the InterestFrequency by the number of times in occurs in a month
+ */
 const determineCalculatorData = (
   interestFrequency: InterestPaidTypes,
   investmentTerm: number
@@ -42,31 +46,20 @@ export const calculateFinalBalance = ({
   interestPaid,
   investmentTerm,
 }: TermDepositCalculatorInput) => {
+  const interestRatePercentage = interestRate / 100;
+
   switch (interestPaid) {
     case InterestPaidTypes.AtMaturity:
-      return Math.round(
-        startDeposit * (1 + ((interestRate / 100) * investmentTerm) / 12)
-      );
-    default:
-      const calculatorData = determineCalculatorData(
-        interestPaid,
-        investmentTerm
-      );
-
+      return Math.round(startDeposit * (1 + (interestRatePercentage * investmentTerm) / 12));
+    default: {
+      const calculatorData = determineCalculatorData(interestPaid, investmentTerm);
+      
       if (calculatorData) {
-        const interestRatePercentage = interestRate / 100;
-
-        const {
-            interestOccurancesPerYear,
-            interestOccurancesPerInvestmentTerm,
-            } = calculatorData;
-
-        return Math.round(
-          startDeposit *
-          Math.pow(1 + interestRatePercentage / interestOccurancesPerYear, interestOccurancesPerInvestmentTerm));
-        
+        const { interestOccurancesPerYear, interestOccurancesPerInvestmentTerm } = calculatorData;
+        return Math.round(startDeposit * Math.pow(1 + interestRatePercentage / interestOccurancesPerYear, interestOccurancesPerInvestmentTerm));        
       }
 
       return startDeposit;
+    }
   }
 };

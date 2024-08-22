@@ -4,13 +4,9 @@ import {
 } from "../components/TermDepositCalculator/types";
 import { calculateFinalBalance } from "./calculatorHelperFunctions";
 
-type FormFieldMock = {
-  calculatorInput: TermDepositCalculatorInput;
-  expectedFinalBalance: number;
-};
 
 describe("calculatorHelperFunctions ", () => {
-  const formFieldMocks: FormFieldMock[] = [
+  const testCases = [
     {
       calculatorInput: {
         startDeposit: 1000,
@@ -49,7 +45,7 @@ describe("calculatorHelperFunctions ", () => {
     },
   ];
 
-  formFieldMocks.forEach(({ calculatorInput, expectedFinalBalance }) => {
+  testCases.forEach(({ calculatorInput, expectedFinalBalance }) => {
     it(`given starting balance ${calculatorInput.startDeposit} & interest rate ${calculatorInput.interestRate} & interest Paid ${calculatorInput.interestPaid} & investment term ${calculatorInput.investmentTerm} should calculate a final balance equal to ${expectedFinalBalance}`, () => {
       expect(calculateFinalBalance(calculatorInput)).toBe(expectedFinalBalance);
     });
